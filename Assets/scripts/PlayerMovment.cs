@@ -8,7 +8,7 @@ public class PlayerMovment : MonoBehaviour
 
     public float speed = 12f;
     public float gravity = -9.81f;
-    public float jumpHeight = 2f;
+    public float jumpForce = 2f;
 
 
     public Transform groundCeck;
@@ -36,7 +36,7 @@ public class PlayerMovment : MonoBehaviour
 
         if(Input.GetButtonDown("Jump")&& isGrounded)
         {
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+            velocity.y = jumpForce;
         }
 
         float x = Input.GetAxis("Horizontal");
