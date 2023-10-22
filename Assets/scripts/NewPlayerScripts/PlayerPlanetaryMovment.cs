@@ -12,19 +12,19 @@ public class PlayerPlanetaryMovment : MonoBehaviour
 
     [SerializeField] Transform planet;
     [SerializeField] float autoOrientSpeed;
-    [SerializeField] float projectileSpeed;
+    
     Vector3 gravityVector;
 
     public Transform groundCeck;
+    public Transform jumpCeck;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
     Vector3 velocity;
     bool isGrounded;
+    bool canJump;
     bool wasGrounded;
 
-    [SerializeField] GameObject Projectile;
-    [SerializeField] Transform pointOfFire;
 
     // Start is called before the first frame update
     void Start()
@@ -36,21 +36,20 @@ public class PlayerPlanetaryMovment : MonoBehaviour
     void Update()
     {
         isGrounded = Physics.CheckSphere(groundCeck.position, groundDistance, groundMask);
+        canJump = Physics.CheckSphere(jumpCeck.position, groundDistance, groundMask);
+
         gravityVector = transform.position - planet.position;
         if(isGrounded != wasGrounded && !wasGrounded)
         {
             velocity = velocity*0;
         }
         wasGrounded = isGrounded;
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && canJump)
         {
             Jump();
         }
 
-        if (Input.GetButtonDown("Fire1"))
-        {
-            Fire();
-        }
+        
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
@@ -80,12 +79,5 @@ public class PlayerPlanetaryMovment : MonoBehaviour
     void Jump()
     {
         velocity = gravityVector.normalized * jumpForce;
-    }
-
-    void Fire()
-    {
-        GameObject bullet = Instantiate(Projectile, pointOfFire.transform.position, pointOfFire.transform.rotation);
-        if(bullet.TryGetComponent<Rigidbody>(out Rigidbody bulletrb))
-            bulletrb.velocity = bullet.transform.forward * projectileSpeed;
     }
 }
