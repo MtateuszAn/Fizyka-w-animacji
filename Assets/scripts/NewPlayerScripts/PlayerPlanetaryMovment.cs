@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerPlanetaryMovment : MonoBehaviour
 {
     public CharacterController controller;
@@ -26,10 +27,11 @@ public class PlayerPlanetaryMovment : MonoBehaviour
     bool wasGrounded;
 
 
+
     // Start is called before the first frame update
     void Start()
     {
-        
+       
     }
 
     // Update is called once per frame
@@ -62,6 +64,8 @@ public class PlayerPlanetaryMovment : MonoBehaviour
         Rotate();
         controller.Move(velocity * Time.deltaTime);
 
+
+       
     }
 
     void Gravity()
@@ -74,6 +78,7 @@ public class PlayerPlanetaryMovment : MonoBehaviour
     {
         Quaternion orientationDirection = Quaternion.FromToRotation(-transform.up, -gravityVector) * transform.rotation;
         transform.rotation = Quaternion.Slerp(transform.rotation, orientationDirection, Time.deltaTime * autoOrientSpeed);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void Jump()
