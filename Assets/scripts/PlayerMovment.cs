@@ -49,9 +49,6 @@ public class PlayerMovment : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
         controller.Move(velocity * Time.deltaTime);
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            SceneManager.LoadScene("Scenes/Menu");
-        }
+        
     }
 }

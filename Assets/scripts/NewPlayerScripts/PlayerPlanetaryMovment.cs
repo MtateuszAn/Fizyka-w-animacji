@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerPlanetaryMovment : MonoBehaviour
 {
@@ -64,8 +64,11 @@ public class PlayerPlanetaryMovment : MonoBehaviour
         Rotate();
         controller.Move(velocity * Time.deltaTime);
 
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("Scenes/Menu");
+        }
 
-       
     }
 
     void Gravity()
@@ -85,4 +88,6 @@ public class PlayerPlanetaryMovment : MonoBehaviour
     {
         velocity = gravityVector.normalized * jumpForce;
     }
+
+
 }
